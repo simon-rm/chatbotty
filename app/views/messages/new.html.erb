@@ -1,0 +1,59 @@
+<style>
+  #msg {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 5px;
+      border: 4px solid darkslategray;
+      padding: 10px;
+      height: 500px;
+      overflow-y: auto;
+      h4 {
+          border: 2px solid dimgray;
+          border-radius: 10px;
+          padding: 10px;
+          display: inline-block;
+          white-space: pre-wrap;
+      }
+  }
+</style>
+
+<%= form_with url: messages_path, method: :post, id: "chatbot" do |form| %>
+  <div id ="msg">
+    <h4 style="color: darkblue; align-self: start;">Hello! How can I help you today?</h4>
+  </div>
+  <%= form.label :message_text, "Mensaje:" %><br>
+  <%= form.text_area :message_text, rows: 4, cols: 50 %><br><br>
+  <%= form.submit "Enviar" %>
+<% end %>
+
+<script>
+    async function createMessage(text) {
+        try {
+            const response = await fetch('http://localhost:3000/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message_text: text,
+                }),
+            });
+
+            const data = await response.json();
+            document.querySelector("textarea").value = "";
+            document.querySelector("#msg").insertAdjacentHTML("beforeend", `
+<h4 style="color: darkred; align-self: end;">${text}</h4>
+<h4 style="color: darkblue; align-self: start;">${data.response}</h4>`);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    form = document.querySelector("#chatbot")
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const text = form.querySelector("#message_text").value;
+        createMessage(text);
+    });
+</script>

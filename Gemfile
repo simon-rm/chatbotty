@@ -58,3 +58,11 @@ group :development do
   gem "web-console"
 end
 
+
+gem "interactor", "~> 3.1"
+
+gem "ruby-openai", "~> 8.0"
+
+gem "vcr", "~> 6.3"
+
+gem "webmock", "~> 3.25"
