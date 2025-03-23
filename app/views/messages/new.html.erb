@@ -17,7 +17,6 @@
       }
   }
 </style>
-
 <%= form_with url: messages_path, method: :post, id: "chatbot" do |form| %>
   <div id ="msg">
     <h4 style="color: darkblue; align-self: start;">Hello! How can I help you today?</h4>
@@ -30,7 +29,7 @@
 <script>
     async function createMessage(text) {
         try {
-            const response = await fetch('http://localhost:3000/messages', {
+            const response = await fetch('<%= request.base_url %>/messages', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
