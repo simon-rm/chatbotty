@@ -29,7 +29,7 @@ module StepupChatbot
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths << Rails.root.join('app/interactors')
     config.action_dispatch.default_headers = {
-      'X-Frame-Options' => 'ALLOWALL'
+      'X-Frame-Options' => 'ALLOW-FROM https://stepupleads.com/'
     }
     # Configuration for the application, engines, and railties goes here.
     #
