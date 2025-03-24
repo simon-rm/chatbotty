@@ -28,7 +28,9 @@ module StepupChatbot
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths << Rails.root.join('app/interactors')
-
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+    }
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
