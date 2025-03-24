@@ -91,6 +91,9 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    dartsass-rails (0.5.1)
+      railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -116,6 +119,15 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (4.30.1)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.30.1-aarch64-linux)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.30.1-x86_64-linux)
+      bigdecimal
+      rake (>= 13)
     hashdiff (1.1.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
@@ -305,6 +317,18 @@ GEM
       faraday (>= 1)
       faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
+    sass-embedded (1.86.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.30)
+    sass-embedded (1.86.0-aarch64-linux-musl)
+      google-protobuf (~> 4.30)
+    sass-embedded (1.86.0-arm-linux-gnueabihf)
+      google-protobuf (~> 4.30)
+    sass-embedded (1.86.0-arm-linux-musleabihf)
+      google-protobuf (~> 4.30)
+    sass-embedded (1.86.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.30)
+    sass-embedded (1.86.0-x86_64-linux-musl)
+      google-protobuf (~> 4.30)
     securerandom (0.4.1)
     solid_cable (3.0.7)
       actioncable (>= 7.2)
@@ -377,6 +401,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
+  dartsass-rails (~> 0.5.1)
   debug
   importmap-rails
   interactor (~> 3.1)
