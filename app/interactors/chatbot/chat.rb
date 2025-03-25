@@ -16,7 +16,7 @@ class Chatbot::Chat
     response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: message.text}],
+        messages: conversation.formatted_messages,
         temperature: 0.7,
       }
     )
