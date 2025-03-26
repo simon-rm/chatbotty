@@ -149,16 +149,16 @@ Messages
   flex: 1 1 auto;
   /*  color: rgba(255, 255, 255, .5);
   color: #fff;*/
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
-  width: 92%;
-  margin: 0 auto;
   & .messages-content {
     position: absolute;
     top: 0;
     left: 0;
-    height: 101%;
+    height: 100%;
     width: 100%;
+    padding: 0 10px;
   }
   .message {
     clear: both;
@@ -168,7 +168,7 @@ Messages
     -moz-border-radius: 20px 20px 20px 0;
     border-radius: 20px 20px 20px 0;
     background: #eee; /*rgba(0, 0, 0, 0.1);*/
-    margin: 8px 0;
+    margin: 12px 0;
     font-size: 14px;
     line-height: 1.4;
     margin-left: 35px;
@@ -441,8 +441,8 @@ Bounce
   */
   background: rgba(255, 255, 255, 0.9);
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  left: 20px;
+  top: 60px;
   margin: auto;
   z-index: 10;
   box-shadow: 2px 10px 40px rgba(22,20,19,0.4);
@@ -669,14 +669,13 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
 
     margin: auto;
     width: 80px;
-    height: 40px;
+    height: 80px;
     background-color: #fff;
-    border-top-left-radius: 60px;
-    border-top-right-radius: 60px;
+    border-radius: 60px;
 
     border-bottom: 0;
-    box-shadow:1px 4px 20px rgba(22,20,19,0.6);
-    -webkit-box-shadow:1px 4px 20px rgba(22,20,19,0.6) ;
-    -moz-box-shadow:1px 4px 20px rgba(22,20,19,0.6);
+    box-shadow: 1px -4px 20px rgba(22, 20, 19, 0.6);
+    //-webkit-box-shadow:1px 4px 20px rgba(22,20,19,0.6) ;
+    //-moz-box-shadow:1px 4px 20px rgba(22,20,19,0.6);
   }
 }

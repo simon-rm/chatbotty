@@ -1,7 +1,7 @@
-<section class="avenue-messenger" data-controller="chatbot">
+<section class="avenue-messenger" data-controller="chatbot" data-chatbot-avatar-url-value="<%= image_path 'agent.png' %>">
   <div class="agent-face">
     <div class="half">
-      <img class="agent circle" src="http://askavenue.com/img/17.jpg" alt="Sophie">
+      <%= image_tag 'agent.png', class: 'agent circle', alt: 'Sophie' %>
     </div>
   </div>
 
@@ -11,8 +11,9 @@
       <h2>StepUpLeads</h2>
     </div>
 
-    <div class="messages" data-chatbot-target="messages">
-      <div class="messages-content"></div>
+    <div class="messages">
+      <div class="messages-content" data-chatbot-target="messages">
+      </div>
     </div>
 
     <div class="message-box">

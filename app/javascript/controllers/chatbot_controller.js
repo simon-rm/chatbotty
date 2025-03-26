@@ -1,17 +1,10 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["messages", "input", "submit"];
-
+  static targets = ["bot-message-template", "messages", "input", "submit"];
+  static values = { avatarUrl: String };
   connect() {
-    this.i = 0;
-    this.initializeScrollbar();
     this.setupInitialMessage();
-  }
-
-  initializeScrollbar() {
-    // Handle scrollbar initialization manually without jQuery
-    this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight;
   }
 
   setupInitialMessage() {
@@ -21,8 +14,10 @@ export default class extends Controller {
   }
 
   updateScrollbar() {
-    // Update the scroll position to always scroll to the bottom
-    this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight;
+    setTimeout(() => {
+      const messages = this.messagesTarget.parentElement;
+      messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+    }, 100);
   }
 
   setDate() {
@@ -65,7 +60,7 @@ export default class extends Controller {
     const loadingMessage = `
   <div class="message loading new">
     <figure class="avatar">
-      <img src="http://askavenue.com/img/17.jpg">
+      <img src="${this.avatarUrlValue}" alt="agent avatar">
     </figure>
     <span></span>
   </div>
@@ -93,7 +88,7 @@ export default class extends Controller {
     const message = `
       <div class="message new">
         <figure class="avatar">
-          <img src="http://askavenue.com/img/17.jpg">
+            <img src="${this.avatarUrlValue}" alt="agent avatar">
         </figure>
         ${text}
       </div>
@@ -102,13 +97,11 @@ export default class extends Controller {
 
     this.setDate();
     this.updateScrollbar();
-    this.i++;
   }
 
   //also inserts response
   async getLlmResponse(prompt) {
     try {
-      console.log(prompt);
       const response = await fetch(`${window.location.origin}/messages`, {
         method: 'POST',
         headers: {
