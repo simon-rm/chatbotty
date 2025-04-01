@@ -1,11 +1,15 @@
 require "rails_helper"
 
-RSpec.describe Chatbot::Chat do
+RSpec.describe LLM::Chat do
   let!(:params) { {message_text: "Hello!", session_id: "123"} }
+
+  before do
+    allow(LLM::PromptService).to receive(:call).and_return("AI response")
+  end
 
   describe ".call" do
     context "Success" do
-      let!(:result) { Chatbot::Chat.call(params) }
+      let!(:result) { LLM::Chat.call(params) }
 
       it "is successful" do
         expect(result).to be_success
@@ -29,7 +33,7 @@ RSpec.describe Chatbot::Chat do
 
       context "Continuing a conversation" do
         before do
-          Chatbot::Chat.call(params)
+          LLM::Chat.call(params)
         end
 
         it "does not create a new conversation" do
@@ -40,7 +44,7 @@ RSpec.describe Chatbot::Chat do
 
     context "Failure" do
       context "Prompt is blank" do
-        let!(:result) { Chatbot::Chat.call(message_text: nil) }
+        let!(:result) { LLM::Chat.call(message_text: nil) }
 
         it "is not successful" do
           expect(result).not_to be_success

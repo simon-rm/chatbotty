@@ -1,4 +1,4 @@
-class Chatbot::Chat
+class LLM::Chat
   include Interactor
 
   def call
@@ -9,19 +9,10 @@ class Chatbot::Chat
       context.fail!(error: message.errors.full_messages)
       return
     end
-    client = OpenAI::Client.new(
-      access_token: Rails.application.credentials.openai_key,
-      log_errors: true
-    )
-    response = client.chat(
-      parameters: {
-        model: "gpt-3.5-turbo",
-        messages: conversation.formatted_messages,
-        temperature: 0.7,
-      }
-    )
-    response_text = response.dig("choices", 0, "message", "content")
-    bot_message = Message.new(human: false, text: response_text, conversation:)
+
+    response = LLM::PromptService.call(conversation.messages)
+
+    bot_message = Message.new(human: false, text: response, conversation:)
     if bot_message.save
       context.response = bot_message.text
     else
