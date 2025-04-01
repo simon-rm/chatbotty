@@ -43,7 +43,7 @@ export default class extends Controller {
     }
 
     // Create the new personal message
-    const message = `<div class="message message-personal">${msg}</div>`
+    const message = `<div class="message message-personal"><span class="message-personal-text">${msg}</span></div>`
     this.messagesTarget.insertAdjacentHTML('beforeend', message);
 
     this.setDate();
@@ -75,7 +75,7 @@ export default class extends Controller {
       }, 1000 + Math.random() * 2000);
     }
     else {
-      const msg = Array.from(document.querySelectorAll('.message-personal')).at(-1);
+      const msg = Array.from(document.querySelectorAll('.message-personal-text')).at(-1);
       this.getLlmResponse(msg.innerText);
     }
 
