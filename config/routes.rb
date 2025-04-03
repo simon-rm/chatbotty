@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "chatbot", to: "chatbot#show"
-  post "chatbot/respond", to: "chatbot#respond"
+  post "chatbot", to: "chatbot#respond"
   post "chatbot/whatsapp", to: "chatbot#whatsapp_webhook"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
