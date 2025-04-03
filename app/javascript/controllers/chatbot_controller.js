@@ -102,7 +102,7 @@ export default class extends Controller {
   //also inserts response
   async getLlmResponse(prompt) {
     try {
-      const response = await fetch(`${window.location.origin}/messages`, {
+      const response = await fetch(`${window.location.origin}/chatbot/respond`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

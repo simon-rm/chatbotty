@@ -1,5 +1,7 @@
-class MessagesController < ApplicationController
-  def create
+class ChatbotController < ApplicationController
+
+  def show; end
+  def respond
     result = LLM::Chat.call(message_text: params[:message_text], session_id: session.id.cookie_value)
     if result.success?
       render json: { status: 'success', response: result.response }, status: :created
