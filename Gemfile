@@ -68,3 +68,5 @@ gem "vcr", "~> 6.3"
 gem "webmock", "~> 3.25"
 
 gem "dartsass-rails", "~> 0.5.1"
+
+gem "whatsapp_sdk", "~> 1.0"

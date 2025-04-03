@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "chatbot", to: "chatbot#show"
   post "chatbot/respond", to: "chatbot#respond"
+  post "chatbot/whatsapp", to: "chatbot#whatsapp_webhook"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

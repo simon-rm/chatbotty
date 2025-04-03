@@ -9,4 +9,8 @@ class ChatbotController < ApplicationController
       render json: { status: 'error', error: result.error }, status: :unprocessable_entity
     end
   end
+
+  def whatsapp_webhook
+    head :ok
+  end
 end
