@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post "chatbot", to: "chatbot#respond"
   namespace :webhooks do
     post "chatbot/whatsapp", to: "whatsapp#respond"
+    get "chatbot/whatsapp", to: "whatsapp#validate"
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

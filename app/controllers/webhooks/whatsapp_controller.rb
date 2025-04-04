@@ -1,8 +1,12 @@
-class Webhooks::WhatsappController
+class Webhooks::WhatsappController < ApplicationController
   def respond
     user = User.find_or_create_by(wa_id: user_attributes[:wa_id])
     user.update(user_attributes)
     LLM::WhatsappChat.call(message_attributes:, user:)
+  end
+
+  def validate
+    render plain: params["hub.challenge"]
   end
 
   private
