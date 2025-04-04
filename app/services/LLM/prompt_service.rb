@@ -25,7 +25,7 @@ class LLM::PromptService < ApplicationService
     return [ { role: :user, content: @messages } ] if @messages.is_a? String
 
     @messages.order(:id).map do |message|
-      { role: message.human ? "user" : "assistant", content: message.text}
+      { role: message.bot ? "assistant" : "user", content: message.text}
     end
   end
 end
