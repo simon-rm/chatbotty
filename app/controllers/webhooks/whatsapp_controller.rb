@@ -5,10 +5,6 @@ class Webhooks::WhatsappController < ApplicationController
     LLM::WhatsappChat.call(message_attributes:, user:)
   end
 
-  def validate
-    render plain: params["hub.challenge"]
-  end
-
   private
 
   def user_attributes
