@@ -10,17 +10,21 @@ class Webhooks::WhatsappController < ApplicationController
 
   def user_attributes
     {
-      name: params.dig("value", "contacts", "profile", "name"),
-      phone_number: params.dig("value", "metadata", "phone_number_id"),
-      wa_id: params.dig("value", "contacts", "wa_id")
+      name: whatsapp_attributes.dig("contacts", 0, "profile", "name"),
+      phone_number: whatsapp_attributes.dig("metadata", "display_phone_number"),
+      wa_id: whatsapp_attributes.dig("contacts", 0, "wa_id")
     }
   end
 
   def message_attributes
     {
-      text: params.dig("value", "messages", "text", "body"),
-      mid: params.dig("value", "messages", "id"),
+      text: whatsapp_attributes.dig("messages", 0, "text", "body"),
+      mid: whatsapp_attributes.dig("messages", 0, "id"),
       platform: :whatsapp
     }
+  end
+
+  def whatsapp_attributes
+    params.dig("entry", 0, "changes", 0, "value")
   end
 end
