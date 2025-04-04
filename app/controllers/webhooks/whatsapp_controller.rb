@@ -2,6 +2,7 @@ class Webhooks::WhatsappController < ApplicationController
   def respond
     user = User.find_or_create_by(wa_id: user_attributes[:wa_id])
     user.update(user_attributes)
+    Rails.logger.info(user_attributes.merge(message_attributes).to_s)
     LLM::WhatsappChat.call(message_attributes:, user:)
   end
 
