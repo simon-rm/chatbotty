@@ -1,5 +1,7 @@
 class Message < ApplicationRecord
-  belongs_to :conversation
+  enum :platform, %i[homepage whatsapp]
 
-  validates :text, :conversation, presence: true
+  belongs_to :user
+
+  validates :text, :user, presence: true
 end

@@ -14,18 +14,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_22_221153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "conversations", force: :cascade do |t|
+  create_table "messages", force: :cascade do |t|
+    t.text "text"
+    t.string "mid"
+    t.boolean "bot", default: false
+    t.integer "platform", default: 0
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "wa_id"
     t.string "session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.text "text"
-    t.boolean "human"
-    t.bigint "conversation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 end
