@@ -1,10 +1,10 @@
 class SendWhatsappMessage
   include Interactor
-  WA_CLIENT = WhatsappSdk::Api::Client.new
 
   def call
     message = context.message
-    msg_data = WA_CLIENT.messages.send_text(
+    wa_client = WhatsappSdk::Api::Client.new
+    msg_data = wa_client.messages.send_text(
       sender_id: Rails.application.credentials.whatsapp.sender_id,
       recipient_number: format_phone_number(message.user.phone_number),
       message: message.text,
@@ -34,7 +34,6 @@ class SendWhatsappMessage
       area_code = possible_area_codes.find do |possible_area_code|
         CONSTANTS::AR_AREA_CODES.find { it == possible_area_code }
       end
-      context.fail!(error: "Area code not found for #{context.user.phone_number}") unless area_code
       phone_number.insert(area_code.length + 2, "15")
     end
   end
