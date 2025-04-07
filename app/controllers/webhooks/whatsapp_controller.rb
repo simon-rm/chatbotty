@@ -3,7 +3,6 @@ class Webhooks::WhatsappController < ApplicationController
     if whatsapp_params["messages"]
       user = User.find_or_create_by(phone_number: user_attributes[:phone_number])
       user.update(user_attributes)
-      Rails.logger.info(user_attributes.merge(message_attributes).to_s)
       result = LLM::WhatsappChat.call(message_attributes:, user:)
       if result.success?
         head :ok
@@ -26,6 +25,7 @@ class Webhooks::WhatsappController < ApplicationController
     {
       text: whatsapp_params.dig("messages", 0, "text", "body"),
       mid: whatsapp_params.dig("messages", 0, "id"),
+      wa_audio_id: whatsapp_params.dig("messages", 0, "audio", "id"),
       platform: :whatsapp
     }
   end
