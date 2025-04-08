@@ -7,18 +7,19 @@ class LLM::Chat
     if incoming_message.wa_audio_id?
       wa_client = WhatsappSdk::Api::Client.new
       audio_info = wa_client.media.get(media_id: incoming_message.wa_audio_id)
-      local_audio_path = "tmp/wa_audio_#{incoming_message.wa_audio_id}.ogg"
-      wa_client.media.download(url: audio_info.url, media_type: audio_info.mime_type, file_path: local_audio_path)
-      File.open(local_audio_path) do |audio|
-        incoming_message.audio.attach(io: audio, filename: "wa_audio_#{incoming_message.wa_audio_id}.ogg")
+      Tempfile.create(%w[audio .ogg]) do |audio|
+        wa_client.media.download(url: audio_info.url, file_path: audio.path,
+                                 media_type: audio_info.mime_type)
+        incoming_message.text = audio_to_text(audio)
+        incoming_message.save
+        incoming_message.audio.attach(io: audio, filename: audio.path,
+                                      content_type: audio_info.mime_type)
       end
-      incoming_message.text = audio_to_text(incoming_message.audio)
     end
     unless incoming_message.save
       context.fail!(error: incoming_message.errors.full_messages)
       return
     end
-
     previous_response_id = user.messages.where(bot: true).last&.openai_response_id
     response = get_response(incoming_message.text, previous_response_id:)
 
@@ -32,19 +33,22 @@ class LLM::Chat
   private
 
   def audio_to_text(audio)
-    OpenAI::Client.new.audio.transcribe(parameters: {
+    text = OpenAI::Client.new.audio.transcribe(parameters: {
       model: "whisper-1",
       file: audio
     })["text"]
+    audio.rewind
+    text
   end
 
   def text_to_audio(text)
     audio_binary = OpenAI::Client.new.audio.speech(parameters: {
       model: "tts-1",
       input: text,
-      voice: "sage"
+      voice: "sage",
+      response_format: "opus"
     })
-    { filename: "audio.mp3", io: StringIO.new(audio_binary) }
+    { filename: "audio.ogg", io: StringIO.new(audio_binary) }
   end
 
   def get_response(input, previous_response_id: nil, model: "gpt-3.5-turbo", temperature: 0.7)
