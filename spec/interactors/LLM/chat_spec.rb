@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe LLM::Chat do
   let!(:user) { User.create(session_id: 123) }
-  let!(:params) { { message_attributes: { text: "Hello!"}, user: } }
+  let!(:params) { { message_attributes: { text: "Hello!" }, user: } }
 
   before do
     allow(LLM::PromptService).to receive(:call).and_return("AI response")

@@ -1,7 +1,7 @@
 class SendWhatsappMessage
   include Interactor
   WA_CLIENT = WhatsappSdk::Api::Client.new
-  
+
   def call
     message = context.message
     sender_id = Rails.application.credentials.whatsapp.sender_id
@@ -27,7 +27,7 @@ class SendWhatsappMessage
                              type: message.audio.content_type)&.id
     end
   end
-  
+
   # Converts argentine phone numbers to a format whatsapp API understands
   def format_phone_number(phone_number)
     phone = Phonelib.parse(phone_number)

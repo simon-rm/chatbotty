@@ -27,9 +27,9 @@ module StepupChatbot
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
-    config.autoload_paths << Rails.root.join('app/interactors')
+    config.autoload_paths << Rails.root.join("app/interactors")
     config.action_dispatch.default_headers = {
-      'X-Frame-Options' => 'ALLOW-FROM https://stepupleads.com/'
+      "X-Frame-Options" => "ALLOW-FROM https://stepupleads.com/"
     }
     # Configuration for the application, engines, and railties goes here.
     #

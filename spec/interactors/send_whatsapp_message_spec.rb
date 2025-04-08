@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.describe SendWhatsappMessage do
   let(:user) { User.create!(phone_number: '5491134567890', name: 'Test User') }
   let(:message) { Message.create!(text: 'Hello', user:) }
-  let(:whatsapp_client) { instance_double(WhatsappSdk::Api::Client, messages: messages_double ) }
+  let(:whatsapp_client) { instance_double(WhatsappSdk::Api::Client, messages: messages_double) }
   let(:messages_double) { double(:messages) }
-  
+
   before do
     allow(WhatsappSdk::Api::Client).to receive(:new).and_return(whatsapp_client)
   end
 
   context 'when WhatsApp API succeeds' do
     before do
-      api_response = double(messages: [double(id: 'whatsapp_msg_id')])
+      api_response = double(messages: [ double(id: 'whatsapp_msg_id') ])
       allow(messages_double).to receive(:send_text).and_return(api_response)
     end
 
