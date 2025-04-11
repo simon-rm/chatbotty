@@ -15,7 +15,6 @@ class AI::GenerateResponse
 
   def generate_input_text_if_needed
     return if message.text?
-    binding.break
     message.update text: OpenaiClient.audio_to_text(message.audio)
     context.fail!(error: "Could not convert audio to text") if message.text.blank?
   end
