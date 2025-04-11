@@ -59,7 +59,6 @@ group :development do
 end
 
 
-gem "interactor", "~> 3.1"
 
 gem "ruby-openai", "~> 8.0"
 
@@ -72,3 +71,5 @@ gem "dartsass-rails", "~> 0.5.1"
 gem "whatsapp_sdk", "~> 1.0"
 
 gem "phonelib", "~> 0.10.7"
+
+gem "interactor", "~> 3.1"

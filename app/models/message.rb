@@ -4,5 +4,11 @@ class Message < ApplicationRecord
   belongs_to :user
   has_one_attached :audio
 
-  validates :user, presence: true
+  validate :has_content
+
+  def has_content
+    if [text, audio, wa_audio_id].all?(&:blank?)
+      errors.add(:message, "must have text, audio or wa_audio_id")
+    end
+  end
 end

@@ -1,9 +1,7 @@
 class Webhooks::WhatsappController < ApplicationController
   def respond
     if whatsapp_params["messages"]
-      user = User.find_or_create_by(phone_number: user_attributes[:phone_number])
-      user.update(user_attributes)
-      result = LLM::WhatsappChat.call(message_attributes:, user:)
+      result = AI::WhatsappChat.call(message_attributes:, user_attributes:)
       if result.success?
         head :ok
       else
@@ -18,7 +16,7 @@ class Webhooks::WhatsappController < ApplicationController
     {
       name: whatsapp_params.dig("contacts", 0, "profile", "name"),
       phone_number: whatsapp_params.dig("contacts", 0, "wa_id")
-    }
+    }.compact
   end
 
   def message_attributes
@@ -27,7 +25,7 @@ class Webhooks::WhatsappController < ApplicationController
       mid: whatsapp_params.dig("messages", 0, "id"),
       wa_audio_id: whatsapp_params.dig("messages", 0, "audio", "id"),
       platform: :whatsapp
-    }
+    }.compact
   end
 
   def whatsapp_params
