@@ -60,7 +60,7 @@ end
 
 
 
-gem "ruby-openai", "~> 8.0"
+gem "ruby-openai", "~> 8.1"
 
 gem "vcr", "~> 6.3"
 
