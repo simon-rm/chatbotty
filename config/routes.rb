@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "chatbot#show"
   get "chatbot", to: "chatbot#show"
   post "chatbot", to: "chatbot#respond"
   namespace :webhooks do
