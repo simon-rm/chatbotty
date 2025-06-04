@@ -70,6 +70,6 @@ gem "dartsass-rails", "~> 0.5.1"
 
 gem "whatsapp_sdk", "~> 1.0"
 
-gem "phonelib", "~> 0.10.7"
+gem "phonelib", "~> 0.10.9"
 
 gem "interactor", "~> 3.1"
