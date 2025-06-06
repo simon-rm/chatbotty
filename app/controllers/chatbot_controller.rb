@@ -10,6 +10,10 @@ class ChatbotController < ApplicationController
     end
   end
 
+  def whatsapp_webhook
+    render plain: params['hub.challenge']
+  end
+
   private
 
   def message_attributes
