@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "chatbot#show"
   get "chatbot", to: "chatbot#show"
+  get "chatbot/whatsapp", to: "chatbot#whatsapp_webhook"
   post "chatbot", to: "chatbot#respond"
   namespace :webhooks do
     post "chatbot/whatsapp", to: "whatsapp#respond"
